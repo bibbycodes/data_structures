@@ -31,22 +31,14 @@ class Node:
       print("returning")
       return
     if node.left:
-      print("going left")
+      print("visiting left node")
       self.traverse_in_order(node.left)
-    print("Performing Operation")
+    print("Performing Operation, visiting node")
     node.perform_operation()
     if node.right:
-      print("going right")
+      print("visiting right node")
       self.traverse_in_order(node.right)
     print("Reached end")
-
-  # def visit(self, node):
-  #   if self.left != None:
-  #     return self.visit(self.left)
-  #   elif self.right != None:
-  #     return self.visit(self.right)
-  #   else:
-  #     self.perform_operation(operation)
 
   def insert(self, node, value):
     print(f"begin insert {value} through {node.value}")
@@ -81,8 +73,8 @@ class Node:
     return self.value
 
 tree = Tree()
-for i in range(100):
-  value = math.floor(random() * 100)
+for i in range(1000):
+  value = math.floor(random() * 1000)
   tree.insert(value)
 
 tree.traverse()
