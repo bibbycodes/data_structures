@@ -1,16 +1,17 @@
 from random import random
 import math
+
 class Tree:
   def __init__(self, root = None):
     self.root = root
 
   def insert(self, data):
     if self.root:
-      # print(f"root exists, value {self.root.value}")
-      # print(f"node value {node.value}, root value {self.root.value}")
-      return self.root.insert(self.root, data)
+      print(f"Root exists. Value: {self.root.value}")
+      return self.root.insert(self.root, data) # Improve this line
     else:
       self.root = Node(data)
+      print(f"Created tree root with value {self.root.value}")
       return True
     return False
 
@@ -28,45 +29,46 @@ class Node:
 
   def traverse_in_order(self, node):
     if node == None:
-      print("returning")
+      print("Node == None, Returning")
       return
     if node.left:
-      print("visiting left node")
+      print("Visiting left node")
       self.traverse_in_order(node.left)
     print("Performing Operation, visiting node")
     node.perform_operation()
     if node.right:
-      print("visiting right node")
+      print("Visiting right node")
       self.traverse_in_order(node.right)
-    print("Reached end")
+    print("Reached Leaf Node")
 
   def insert(self, node, value):
-    print(f"begin insert {value} through {node.value}")
+    print(f"Starting insert recursion with value: {value} through node with value: {node.value}")
     if node == None:
-      print("node is None")
+      print("Node is None")
       node = Node(value)
       return
     if node.value > value:
-      print(f"Current node Value {node.value} > Value {value}")
+      print(f"Current node Value: {node.value} > Value to be inserted: {value}")
       if node.left == None:
-        print(f"creating node of value {value} left")
+        print(f"Creating new node with value: {value} to the left of node with Value: {node.value}")
         node.left = Node(value)
         return
       else:
-        print(f"recursing insert {value} left")
+        print(f"Recursing through function. Going left. Value to be inserted: {value}")
         node.insert(node.left, value)
     if node.value < value:
-      print(f"Current node Value {node.value} < Value {value}")
+      print(f"Current node Value {node.value} < Value to be inserted: {value}")
       if node.right == None:
-        print(f"creating node of value {value} right")
+        print(f"Creating new node with value: {value} to the left of node with Value: {node.value}")
         node.right = Node(value)
         return
       else:
         print(f"recursing insert {value} right")
         node.insert(node.right, value)
     if node.value == value:
-      print("Equal Value! Skipping")
-    print("Reached end of function")
+      print(f"Node Value and Value to be inserted are equal Value! Skipping. Value: {node.value}")
+    
+    print("Reached end of recursion")
       
   def perform_operation(self):
     print(self.value)
