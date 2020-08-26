@@ -41,12 +41,51 @@ class Node:
     self.parent = parent
 
   def delete(self):
-    print(self)
+    if self.is_leaf():
+      print("Node is a leaf")
+      if self.is_left_child_of_parent():
+        print(f"Deleting left child node of parent with value {self.parent.left.value} which should be the same as {self.value}")
+        self.parent.left = None
+      else:
+        print(f"Deleting right child node of parent with value {self.parent.right.value} which should be the same as {self.value}")
+        self.parent.right = None
+    if self.has_one_child():
+      if self.is_left_child_of_parent():
+        if self.has_only_left_child() is True:
+          self.parent.left = self.left
+          print(f"Deleted {self.value} from tree, parent node value: {self.parent.value} and replacing with value {self.parent.left.value}")
+          return self
+        elif self.has_only_left_child() is False:
+          self.parent.left = self.right
+          print(f"Deleted {self.value} from tree, parent node value: {self.parent.value} and replacing with value {self.parent.left.value}")
+          return self
+        else:
+          print("That didnt quite go to plan")
+      else:
+        print("node is on right side of parent")
+        if self.has_only_left_child() is True:
+          self.parent.right = self.left
+          print(f"Deleted {self.value} from tree, parent node value: {self.parent.value} and replacing with value {self.parent.right.value}")
+          return self
+        elif self.has_only_left_child() is False:
+          self.parent.right = self.right
+          print(f"Deleted {self.value} from tree, parent node value: {self.parent.value} and replacing with value {self.parent.right.value}")
+          return self
+        else:
+          print("That didnt quite go to plan")
+
+
 
   def is_leaf(self):
     if not self.left and not self.right:
       return True
     return False
+
+  def is_left_child_of_parent(self):
+    if self.parent.left.value == self.value:
+      return True
+    if self.parent.right.value == self.value:
+      return False
 
   def has_one_child(self):
     if self.left and not self.right:
@@ -54,6 +93,12 @@ class Node:
     if self.right and not self.left:
       return True
     return False
+
+  def has_only_left_child(self):
+    if self.left and not self.right:
+      return True
+    if self.right and not self.left:
+      return False
 
   def has_two_children(self):
     if self.left and self.right:
@@ -127,9 +172,14 @@ tree = Tree()
 tree.insert(3)
 tree.insert(8)
 tree.insert(2)
-tree.insert(6)
+tree.insert(1)
 tree.insert(10)
-tree.search(3)
+tree.search(8)
+tree.delete(8)
+tree.search(8)
+# tree.insert(6)
+# tree.insert(10)
+# tree.search(3)
 # tree.insert(3)
 
 # tree.search(6)
