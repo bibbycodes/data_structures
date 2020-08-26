@@ -15,17 +15,53 @@ class Tree:
       return True
     return False
 
+  def search(self, value):
+    if self.root:
+      return self.root.search(self.root, value)
+    else:
+      return None
+
   def traverse(self):
     if self.root:
       return self.root.traverse_in_order(self.root)
     else:
       return None
 
+  def delete(self, value):
+    node = self.search(value)
+    if node:
+      print(node)
+      node.delete()
+
 class Node:
-  def __init__(self, value):
+  def __init__(self, value, parent=None):
     self.left = None
     self.right = None
     self.value = value
+    self.parent = parent
+
+  def delete(self):
+    print(self)
+
+  def is_leaf(self):
+    if not self.left and not self.right:
+      return True
+    return False
+
+  def has_one_child(self):
+    if self.left and not self.right:
+      return True
+    if self.right and not self.left:
+      return True
+    return False
+
+  def has_two_children(self):
+    if self.left and self.right:
+      return True
+    return False
+
+  def get_parent(self, node):
+    return self.parent
 
   def traverse_in_order(self, node):
     if node == None:
@@ -41,6 +77,20 @@ class Node:
       self.traverse_in_order(node.right)
     print("Reached Leaf Node")
 
+  def search(self, node, value):
+    if node == None:
+      print("Value does not exist in tree")
+      return
+    if node.value == value:
+      print(f"Found {value} at {node} with parent value {node.parent.value if node.parent != None else None}")
+      return node
+    if node.value < value:
+      print(f"Current node value {node.value} < Value to be searched: {value}, Searching Right")
+      return self.search(node.right, value)
+    if node.value > value:
+      print(f"Current node value {node.value} > Value to be searched: {value}, Searching Left")
+      return self.search(node.left, value)
+
   def insert(self, node, value):
     print(f"Starting insert recursion with value: {value} through node with value: {node.value}")
     if node == None:
@@ -51,7 +101,7 @@ class Node:
       print(f"Current node Value: {node.value} > Value to be inserted: {value}")
       if node.left == None:
         print(f"Creating new node with value: {value} to the left of node with Value: {node.value}")
-        node.left = Node(value)
+        node.left = Node(value, node)
         return
       else:
         print(f"Recursing through function. Going left. Value to be inserted: {value}")
@@ -60,24 +110,33 @@ class Node:
       print(f"Current node Value {node.value} < Value to be inserted: {value}")
       if node.right == None:
         print(f"Creating new node with value: {value} to the left of node with Value: {node.value}")
-        node.right = Node(value)
+        node.right = Node(value, node)
         return
       else:
         print(f"recursing insert {value} right")
         node.insert(node.right, value)
     if node.value == value:
       print(f"Node Value and Value to be inserted are equal Value! Skipping. Value: {node.value}")
-    
     print("Reached end of recursion")
-      
+
   def perform_operation(self):
     print(self.value)
     return self.value
 
 tree = Tree()
-for i in range(1000):
-  value = math.floor(random() * 1000)
-  tree.insert(value)
+tree.insert(3)
+tree.insert(8)
+tree.insert(2)
+tree.insert(6)
+tree.insert(10)
+tree.search(3)
+# tree.insert(3)
 
-tree.traverse()
+# tree.search(6)
+# tree.delete(8)
+# for i in range(1000):
+#   value = math.floor(random() * 1000)
+#   tree.insert(value)
+
+# tree.traverse()
 # print(tree.root.value)
