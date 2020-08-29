@@ -15,4 +15,5 @@ class Node:
 	def insert(self, node, value):
 		if self.next_node == Node:
 			self.next_node = Node(value)
+			return self.next_node
 		return self.insert(self.next, value)
