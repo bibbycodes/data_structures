@@ -19,10 +19,22 @@ class LinkedList:
 			return self.head.traverse(self.head)
 		return None
 
-	# def delete(self, value):
-	# 	node = self.search(value)
-	# 	if node:
-	# 		return node.delete()
+	def delete(self, value):
+		node = self.search(value)
+		if node == self.head:
+			if self.head.next_node:
+				self.head = self.head.next_node
+				return self.head
+			head = self.head
+			self.head = None
+			return head
+		if node:
+			parent_node = node.get_parent_node(self.head, value)
+			if node.next_node:
+				parent_node.next_node = node.next_node
+			else:
+				parent_node.next_node = None
+		return node
 
 class Node:
 	def __init__(self, value):
@@ -51,12 +63,23 @@ class Node:
 	def perform_operation(self):
 		return self.value
 
-	
+	def get_parent_node(self, node, value, parent_node = None):
+		if node.value == value:
+			return parent_node
+		if node.next_node == None:
+			return None
+		return node.get_parent_node(node.next_node, value, node)
 
 l = LinkedList(2)
-for i in range(10):
-	l.insert(round(random() * 1000))
+# for i in range(10):
+# 	l.insert(round(random() * 1000))
+node = l.insert(20)
+l.insert(3)
+l.insert(5)
+deleted = l.delete(2)
 l.traverse()
 
+# previous = l.head.get_parent_node(l.head.next_node, 20)
+# print("previous", previous.value)
 # print(l.head.value)
 # print(l.head.next_node.value)
