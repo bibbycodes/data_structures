@@ -2,12 +2,24 @@ from random import random
 
 class LinkedList:
 	def __init__(self, head_value = None):
-		self.head = Node(head_value)
+		self.head = Node(head_value) if head_value is not None else None
 
 	def insert(self, value):
 		if self.head:
 			return self.head.insert(self.head, value)
 		self.head = Node(value)
+		return self.head
+
+	def insert_in_order(self, value):
+		if self.head is not None:
+			if self.head.value > value:
+				insert_node = Node(value)
+				insert_node.next_node = self.head
+				self.head = insert_node
+				return self.head
+			return self.head.insert_in_order(self.head, value)
+		self.head = Node(value)
+		return self.head
 
 	def search(self, value):
 		if not self.head:
@@ -15,8 +27,9 @@ class LinkedList:
 		return self.head.search(value, self.head)
 
 	def traverse(self):
-		if self.head:
+		if self.head is not None:
 			return self.head.traverse(self.head)
+		print("linked list is empty")
 		return None
 
 	def delete(self, value):
@@ -47,6 +60,18 @@ class Node:
 			return node.next_node
 		return node.insert(node.next_node, value)
 
+	def insert_in_order(self, node, value):
+		if node.value < value:
+			if node.next_node == None:
+				node.next_node = Node(value)
+				return node.next_node
+			if node.next_node.value > value:
+				insert_node = Node(value)
+				insert_node.next_node = node.next_node
+				node.next_node = insert_node
+				return insert_node
+		return node.insert_in_order(node.next_node, value)
+
 	def search(self, value, node):
 		if node.value == value:
 			return node
@@ -70,14 +95,16 @@ class Node:
 			return None
 		return node.get_parent_node(node.next_node, value, node)
 
-l = LinkedList(2)
+l = LinkedList()
 # for i in range(10):
-# 	l.insert(round(random() * 1000))
-node = l.insert(20)
-l.insert(3)
-l.insert(5)
-deleted = l.delete(2)
-l.traverse()
+# 	l.insert_in_order(round(random() * 1000))
+l.insert_in_order(5)
+l.delete(5)
+print(l.head)
+# l.insert_in_order(3)
+# l.insert_in_order(6)
+# l.insert_in_order(1)
+# l.traverse()
 
 # previous = l.head.get_parent_node(l.head.next_node, 20)
 # print("previous", previous.value)
