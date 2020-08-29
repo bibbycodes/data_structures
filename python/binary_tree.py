@@ -7,7 +7,7 @@ class Tree:
 
   def insert(self, data):
     if self.root:
-      return self.root.insert(self.root, data) # Improve this line
+      return self.root.insert(self.root, data)
     else:
       self.root = Node(data)
       return True
@@ -16,20 +16,31 @@ class Tree:
   def search(self, value):
     if self.root:
       return self.root.search(self.root, value)
-    else:
-      return None
+    return None
 
   def traverse(self):
     if self.root:
       return self.root.traverse_in_order(self.root)
-    else:
-      return None
+    return None
 
   def delete(self, value):
     node = self.search(value)
     if node:
-      print(node)
       node.delete()
+
+  def traverse_iterativeley(self, node):
+    # print(node.value)
+    while node.left:
+      node = node.left
+      # print(node.value)
+      if node.left == None:
+        print(node.value)
+        node.parent.left = None
+        node = node.parent
+        print(node.value)
+        node = node.right
+        break
+
 
 class Node:
   def __init__(self, value, parent=None):
@@ -65,14 +76,12 @@ class Node:
       if node.left == None:
         node.left = Node(value, node)
         return node.left
-      else:
-        return node.insert(node.left, value)
+      return node.insert(node.left, value)
     if node.value < value:
       if node.right == None:
         node.right = Node(value, node)
         return node.right
-      else:
-        return node.insert(node.right, value)
+      return node.insert(node.right, value)
     if node.value == value:
       print(f"Node Value and Value to be inserted are equal Value! Skipping. Value: {node.value}")
 
@@ -80,19 +89,18 @@ class Node:
     if self.is_leaf():
       if self.is_left_child_of_parent():
         self.parent.left = None
-      else:
-        self.parent.right = None
+      self.parent.right = None
+      return self
 
     if self.has_one_child():
       if self.is_left_child_of_parent():
-        if self.has_only_left_child() is True:
+        if self.has_only_left_child():
           self.parent.left = self.left
           self.left.parent = self.parent
           return self
-        elif self.has_only_left_child() is False:
-          self.parent.left = self.right
-          self.right.parent = self.parent
-          return self
+        self.parent.left = self.right
+        self.right.parent = self.parent
+        return self
 
       else:
         if self.has_only_left_child() is True:
@@ -108,7 +116,6 @@ class Node:
       left_most_node.left = self.left
       self.left.parent = left_most_node
       return self
-
 
   def is_leaf(self):
     if not self.left and not self.right:
@@ -154,24 +161,27 @@ class Node:
 tree = Tree()
 tree.insert(4)
 tree.insert(2)
-tree.insert(6)
-tree.insert(1)
 tree.insert(3)
-tree.insert(5)
-tree.insert(7)
-tree.insert(9)
-tree.insert(8)
-deleted_node = tree.delete(6)
-tree.search(6)
-node = tree.search(5)
-node = tree.search(9)
+tree.insert(1)
 
-print("node.value", node.value) 
-print("node.parent.value", node.parent.value,)
-print("node.left.value", node.left.value,)
-print("node.left.value", node.left.value,)
-print("node.parent.right.value", node.parent.right.value,)
-print("node.parent.left.value", node.parent.left.value)
+# tree.insert(1)
+# tree.insert(3)
+# tree.insert(5)
+# tree.insert(7)
+# tree.insert(9)
+# tree.insert(8)
+tree.traverse_iterativeley(tree.root)
+# deleted_node = tree.delete(6)
+# tree.search(6)
+# node = tree.search(5)
+# node = tree.search(9)
+
+# print("node.value", node.value) 
+# print("node.parent.value", node.parent.value,)
+# print("node.left.value", node.left.value,)
+# print("node.left.value", node.left.value,)
+# print("node.parent.right.value", node.parent.right.value,)
+# print("node.parent.left.value", node.parent.left.value)
 
 # node = tree.search(8)
 # print(node.get_leftmost_node_of(node).value)
