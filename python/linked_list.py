@@ -94,19 +94,3 @@ class Node:
 		if node.next_node == None:
 			return None
 		return node.get_parent_node(node.next_node, value, node)
-
-l = LinkedList()
-# for i in range(10):
-# 	l.insert_in_order(round(random() * 1000))
-l.insert_in_order(5)
-l.delete(5)
-print(l.head)
-# l.insert_in_order(3)
-# l.insert_in_order(6)
-# l.insert_in_order(1)
-# l.traverse()
-
-# previous = l.head.get_parent_node(l.head.next_node, 20)
-# print("previous", previous.value)
-# print(l.head.value)
-# print(l.head.next_node.value)
