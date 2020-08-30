@@ -27,7 +27,7 @@ class Queue:
     return self.head.peek(self.head)
 
   def dequeue(self):
-    if self.isEmpty():
+    if self.is_empty():
       print(f"Dequeue Not Possible, queue is empty")
     if self.head.next_node == None:
       self.head = None
@@ -59,6 +59,7 @@ q.enqueue(34)
 q.enqueue(32)
 q.enqueue(37)
 q.enqueue(111)
+q.peek()
 print(q.dequeue().value)
 # print(q.head.next_node.value)
 print(q.head.value)
