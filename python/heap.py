@@ -39,6 +39,9 @@ class MinHeap:
 	def get_parent(self, child_index):
 		return self.items[(self.get_parent_index(child_index))]
 
+	def peek(self):
+		return self.items[0]
+
 	def insert(self, value):
 		if self.size < self.capacity:
 			if self.size == 0:
