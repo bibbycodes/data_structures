@@ -22,12 +22,6 @@ class MinHeap:
 	def has_left_child(self, index):
 		return self.get_left_child_index(index) < self.size
 
-	def has_left_child_only(self, index):
-		return self.has_left_child(index) and not self.has_right_child(index)
-
-	def has_right_child_only(self, index):
-		return self.has_right_child and not self.has_left_child(index)
-
 	def has_right_child(self, index):
 		return self.get_right_child_index(index) < self.size
 
@@ -92,7 +86,6 @@ class MinHeap:
 				break
 			else:
 				self.swap(smaller_child_index, index)
-			
 			index = smaller_child_index
 			
 
