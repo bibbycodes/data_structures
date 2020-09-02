@@ -58,6 +58,15 @@ class Node:
     if node.right:
       self.traverse_in_order(node.right)
 
+  def traverse_pre_order(self, node):
+    if node == None:
+      return
+    node.perform_operation()
+    if node.left:
+      self.traverse_pre_order(node.left)
+    if node.right:
+      self.traverse_pre_order(node.right)
+
   def search(self, node, value):
     if node == None:
       return
