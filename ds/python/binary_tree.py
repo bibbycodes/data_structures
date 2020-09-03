@@ -25,6 +25,7 @@ class Tree:
 
   def delete(self, value):
     node = self.search(value)
+    
     if node:
       node.delete()
 
@@ -53,19 +54,28 @@ class Node:
     if node == None:
       return
     if node.left:
-      self.traverse_in_order(node.left)
+      node.traverse_in_order(node.left)
     node.perform_operation()
     if node.right:
-      self.traverse_in_order(node.right)
+      node.traverse_in_order(node.right)
 
   def traverse_pre_order(self, node):
     if node == None:
       return
     node.perform_operation()
     if node.left:
-      self.traverse_pre_order(node.left)
+      node.traverse_pre_order(node.left)
     if node.right:
-      self.traverse_pre_order(node.right)
+      node.traverse_pre_order(node.right)
+
+  def traverse_post_order(self, node):
+    if node == None:
+      return
+    if node.left:
+      node.traverse_post_order(node.left)
+    if node.right:
+      node.traverse_post_order(node.right)
+    node.perform_operation()
 
   def search(self, node, value):
     if node == None:
