@@ -1,3 +1,5 @@
+import re
+
 class Trie:
   def __init__(self):
     self.root = Node("Root")
@@ -25,27 +27,56 @@ class Trie:
         node = node.children[letter]
       else:
         return False
-    return word
+    if False in node.children:
+      return word
+
+  def insert(self, word):
+    letters_array = [char for char in word]
+    node = self.root
+    for letter in letters_array:
+      if letter in node.children:
+        node = node.children[letter]
+      else:
+        new_node = Node(letter)
+        node.children[letter] = new_node
+        node = new_node
+    node.children[False] = Node(False)
+
+  def contains(self, word):
+    return True if self.search(word) is not False else False
+
+  def is_prefix(self, word, prefix):
+    trie = Trie()
+    trie.insert(word)
+    prefix_array = [char for char in prefix]
+    node = trie.root
+    for letter in prefix:
+      if letter not in node.children:
+        return False
+      else:
+        node = node.children[letter]
+    return True
+
+
+
 
 class Node:
   def __init__(self, value):
     self.value = value
     self.children = {}
 
-
+sentence = "Regular expressions can also be used to remove any non alphanumeric characters. re.sub(regex, string_to_replace_with, original_string) will substitute all non alphanumeric characters with empty string. For example"
+sentence.isalnum()
+print(sentence)
 t = Trie()
-t.insert_word("an")
-t.insert_word("abc")
-t.insert_word("abacus")
-t.insert_word("aboration")
-t.insert_word("abracadabra")
-t.insert_word("absolutely")
-print(t.root)
-print(t.root.children)
-print(t.root.children['a'].children)
-print(t.root.children['a'].children['b'].children)
-print(t.root.children['a'].children['b'].children['a'].children)
-print(t.root.children['a'].children['b'].children['a'].children['c'].children)
-print(t.root.children['a'].children['b'].children['a'].children['c'].children['u'].children)
-print(t.root.children['a'].children['b'].children['a'].children['c'].children['u'].children['s'].children)
-print(t.search("abacus"))
+
+t.insert("an")
+t.insert("abc")
+t.insert("abacus")
+t.insert("aboration")
+t.insert("abracadabra")
+t.insert("absolutely")
+
+
+print(t.contains("ab")) # should this be true??
+print(t.is_prefix("hello", "hel"))
