@@ -52,14 +52,3 @@ class Node:
     if node.next_node == None:
       return node
     return node.peek(node.next_node)
-
-q = Queue()
-q.enqueue(10)
-q.enqueue(34)
-q.enqueue(32)
-q.enqueue(37)
-q.enqueue(111)
-q.peek()
-print(q.dequeue().value)
-# print(q.head.next_node.value)
-print(q.head.value)
