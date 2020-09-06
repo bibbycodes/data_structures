@@ -27,8 +27,7 @@ class Trie:
         node = node.children[letter]
       else:
         return False
-    if False in node.children:
-      return word
+    return word if False in node.children else False
 
   def insert(self, word):
     letters_array = [char for char in word]
@@ -57,9 +56,6 @@ class Trie:
         node = node.children[letter]
     return True
 
-
-
-
 class Node:
   def __init__(self, value):
     self.value = value
@@ -79,4 +75,5 @@ t.insert("absolutely")
 
 
 print(t.contains("ab")) # should this be true??
+print(t.search("ab"))
 print(t.is_prefix("hello", "hel"))
