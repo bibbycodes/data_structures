@@ -60,20 +60,3 @@ class Node:
   def __init__(self, value):
     self.value = value
     self.children = {}
-
-sentence = "Regular expressions can also be used to remove any non alphanumeric characters. re.sub(regex, string_to_replace_with, original_string) will substitute all non alphanumeric characters with empty string. For example"
-sentence.isalnum()
-print(sentence)
-t = Trie()
-
-t.insert("an")
-t.insert("abc")
-t.insert("abacus")
-t.insert("aboration")
-t.insert("abracadabra")
-t.insert("absolutely")
-
-
-print(t.contains("ab")) # should this be true??
-print(t.search("ab"))
-print(t.is_prefix("hello", "hel"))
