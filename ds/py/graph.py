@@ -1,4 +1,6 @@
 from linked_list import LinkedList
+from random import random
+import math
 
 class Graph:
 	def __init__(self, graph_dict = None):
@@ -12,11 +14,10 @@ class Graph:
 
 	def generate(self, graph_dict):
 		dict_repr = {}
-		[dict_repr.update({node : Node(node)}) for node in list(graph_dict.keys())]
-		print(dict_repr)
-		for node_val in graph_dict.keys():
-			node = dict_repr[node_val]
-			edges = graph_dict[node_val]
+		[dict_repr.update({node_value : Node(node_value)}) for node_value in list(graph_dict.keys())]
+		for node_value in graph_dict.keys():
+			node = dict_repr[node_value]
+			edges = graph_dict[node_value]
 			for edge in edges:
 				node.add_child(dict_repr[edge])
 			self.insert(node)
