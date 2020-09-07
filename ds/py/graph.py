@@ -1,28 +1,47 @@
 from linked_list import LinkedList
 
 class Graph:
-	def __init__(self):
+	def __init__(self, graph_dict = None):
 		self.nodes = {}
+		self.graph_dict = graph_dict
+		if graph_dict:
+			self.generate(graph_dict)
 
 	def insert(self, node):
-		self.nodes[node.value] = node.children
+		self.nodes[node] = node.children
 
 	def generate(self, graph_dict):
-		for vertex_value in graph_dict.keys():
-			node = Node(vertex_value)
-			edges = graph_dict[vertex_value]
+		dict_repr = {}
+		[dict_repr.update({node : Node(node)}) for node in list(graph_dict.keys())]
+		print(dict_repr)
+		for node_val in graph_dict.keys():
+			node = dict_repr[node_val]
+			edges = graph_dict[node_val]
 			for edge in edges:
-				node.add_child(edge)
+				node.add_child(dict_repr[edge])
 			self.insert(node)
-			node.children = LinkedList()
+
+	def depth_first_search(self, root):
+		if root == None:
+			return
+		print(root.value)
+		root.visited = True
+		for node in self.nodes[root]:
+			if node.visited == False:
+				self.depth_first_search(node)
+
 
 class Node:
 	def __init__(self, value):
 		self.value = value
-		self.children = LinkedList()
+		self.children = []
+		self.visited = False
 
-	def add_child(self, value):
-		self.children.insert(value)
+	def add_child(self, node):
+		self.children.append(node)
+
+	def __repr__(self):
+		return str(self.value)
 
 graph_dict = {
 	0 : [1, 4, 5],
@@ -33,6 +52,7 @@ graph_dict = {
 	5 : []
 }
 
-g = Graph()
-g.generate(graph_dict)
+g = Graph(graph_dict)
+root = list(g.nodes.keys())[0]
+g.depth_first_search(root)
 print(g.nodes)
