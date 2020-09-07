@@ -26,9 +26,9 @@ class LinkedList:
 			return None
 		return self.head.search(value, self.head)
 
-	def traverse(self):
+	def traverse(self, func):
 		if self.head is not None:
-			return self.head.traverse(self.head)
+			return self.head.traverse(self.head, func)
 		print("linked list is empty")
 		return None
 
@@ -48,6 +48,17 @@ class LinkedList:
 			else:
 				parent_node.next_node = None
 		return node
+
+	def __repr__(self):
+		if self.head:
+			node = self.head
+			node_string = f"{node.value}"
+			while node.next_node:
+				node_string = node_string + f" => {node.next_node.value}"
+				node = node.next_node
+			return node_string
+		return "None"
+
 
 class Node:
 	def __init__(self, value):
@@ -79,8 +90,8 @@ class Node:
 			return None
 		return node.search(value, node.next_node)
 
-	def traverse(self, node):
-		print(node.perform_operation())
+	def traverse(self, node, func):
+		func(node)
 		if node.next_node == None:
 			return
 		return node.traverse(node.next_node)
