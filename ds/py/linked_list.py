@@ -2,7 +2,7 @@ from random import random
 
 class LinkedList:
 	def __init__(self, head_value = None):
-		self.head = Node(head_value) if head_value is not None else None
+		self.head = Node(head_value) if head_value else None
 
 	def insert(self, value):
 		if self.head:
