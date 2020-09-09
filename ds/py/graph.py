@@ -33,8 +33,17 @@ class Graph:
 				self.depth_first_search(node)
 
 	def breadth_first_search(self, root):
+		queue = []
+		root.visited = True
+		queue.append(root)
 
-
+		while len(queue) != 0:
+			removed, queue = queue[-1], queue[:-1]
+			print(removed.value)
+			for node in removed.children:
+				if node.visited == False:
+					node.visited = True
+					queue = [node] + queue
 
 class Node:
 	def __init__(self, value):
@@ -56,8 +65,3 @@ graph_dict = {
 	4 : [],
 	5 : []
 }
-
-g = Graph(graph_dict)
-root = list(g.nodes.keys())[0]
-g.depth_first_search(root)
-print(g.nodes)

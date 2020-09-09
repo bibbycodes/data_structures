@@ -1,12 +1,13 @@
 class Queue:
-  def __init__(self, head_value = None, max_length = 100):
-    self.head =  Node(head_value) if head_value is not None else None
+  def __init__(self, NodeClass, head_value = None, max_length = 100):
+    self.NodeClass = NodeClass
+    self.head =  NodeClass(head_value) if head_value is not None else None
     self.tail = None
     self.length = 0 if not self.head else 1
     self.max_length = max_length
 
   def enqueue(self, value):
-    node = Node(value)
+    node = self.NodeClass(value)
     if self.length == self.max_length:
       raise Exception(f"Enqueue not possible, Queue at capacity, max length: {self.max_length}")
     if self.head:
@@ -48,18 +49,3 @@ class Node:
   def __init__(self, value):
     self.value = value
     self.next_node = None
-
-q = Queue()
-print("enqueing 3 =>", q.enqueue(3).value)
-print("head =>", q.peek())
-print("length =>", q.length)
-print("enqueing 4 =>", q.enqueue(4).value)
-print("head =>", q.peek())
-print("tail =>", q.tail.value)
-print("length =>", q.length)
-print(f"dequeueing, should return  {q.peek()} =>", q.dequeue().value)
-print("length =>", q.length)
-print("enqueing 6 =>", q.enqueue(6).value)
-print("length =>", q.length)
-print("head =>", q.peek())
-print("tail =>", q.tail.value)
