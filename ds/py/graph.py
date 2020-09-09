@@ -1,5 +1,4 @@
 from linked_list import LinkedList
-from queue import Queue
 from random import random
 import math
 
@@ -48,7 +47,6 @@ class Graph:
 	def visit(self, node, fn):
 		fn(node.value)
 
-
 class Node:
 	def __init__(self, value):
 		self.value = value
@@ -60,18 +58,3 @@ class Node:
 
 	def __repr__(self):
 		return str(self.value)
-
-graph_dict = {
-	0 : [1, 4, 5],
-	1 : [4, 3],
-	2 : [1],
-	3 : [2, 4],
-	4 : [],
-	5 : []
-}
-
-g = Graph(graph_dict)
-root = list(g.nodes.keys())[0]
-# g.depth_first_search(root)
-g.breadth_first_search(root)
-print(g.nodes)
