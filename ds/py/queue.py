@@ -6,33 +6,40 @@ class Queue:
     self.max_length = max_length
 
   def enqueue(self, value):
+    node = Node(value)
     if self.length == self.max_length:
-      print(f"Enqueue not possible, Queue at capacity: {self.max_length}")
-      return
+      raise Exception(f"Enqueue not possible, Queue at capacity, max length: {self.max_length}")
     if self.head:
-      node = Node(value)
       node.next_node = self.head
-      self.head = node
+      self.tail = node
       self.length += 1
-      return self.head
-    self.head = Node(value)
+      return node
+    self.head = node
     self.length += 1
-    return self.head
+    return node
 
   def peek(self):
-    if self.length == 1:
-      return self.head
-    if self.length < 1:
-      return None
-    return self.head.peek(self.head)
+    if self.is_empty():
+      raise Exception("Queue is empty")
+    return self.head.value
 
   def dequeue(self):
     if self.is_empty():
-      print(f"Dequeue Not Possible, queue is empty")
-    if self.head.next_node == None:
+      raise Exception("Dequeue Not Possible, queue is empty")
+    if self.length == 1:
+      head = self.head
       self.head = None
-      return self.head
-    return self.head.dequeue(self.head)
+      self.length -= 1
+      return head
+    node = self.tail
+    while True:
+      if node.next_node == self.head:
+        previous_head = self.head
+        node.next_node == None
+        self.head = node
+        self.length -= 1
+        return previous_head
+      node = node.next_node
 
   def is_empty(self):
     return True if self.length == 0 else False
@@ -42,13 +49,17 @@ class Node:
     self.value = value
     self.next_node = None
 
-  def dequeue(self, node, previous_node = None):
-    if node.next_node == None:
-      previous_node.next_node = None
-      return node
-    return node.dequeue(node.next_node, node)
-
-  def peek(self, node):
-    if node.next_node == None:
-      return node
-    return node.peek(node.next_node)
+q = Queue()
+print("enqueing 3 =>", q.enqueue(3).value)
+print("head =>", q.peek())
+print("length =>", q.length)
+print("enqueing 4 =>", q.enqueue(4).value)
+print("head =>", q.peek())
+print("tail =>", q.tail.value)
+print("length =>", q.length)
+print(f"dequeueing, should return  {q.peek()} =>", q.dequeue().value)
+print("length =>", q.length)
+print("enqueing 6 =>", q.enqueue(6).value)
+print("length =>", q.length)
+print("head =>", q.peek())
+print("tail =>", q.tail.value)

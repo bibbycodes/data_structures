@@ -1,4 +1,5 @@
 from linked_list import LinkedList
+from queue import Queue
 from random import random
 import math
 
@@ -30,6 +31,9 @@ class Graph:
 		for node in self.nodes[root]:
 			if node.visited == False:
 				self.depth_first_search(node)
+
+	def breadth_first_search(self, root):
+
 
 
 class Node:
