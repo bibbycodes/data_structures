@@ -9,14 +9,9 @@ def binary_search(target, array, start_index, end_index):
         return False
     else:
         mid_point = int(start_index + (end_index - start_index) / 2)
-        left_side = array[0:mid_point - 1]
-        right_side = array[mid_point + 1:]
-        
         if array[mid_point] == target:
             return mid_point
         if target < array[mid_point]:
             return binary_search(target, array, start_index, mid_point - 1)
         if target > array[mid_point]:
             return binary_search(target, array, mid_point + 1, end_index)
-
-binary_search(300, array, 0, len(array))
