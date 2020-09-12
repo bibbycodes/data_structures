@@ -10,13 +10,16 @@ def dfs_iterative(root):
 	visited = {}
 	stack.push(root)
 
-	while not stack.isEmpty():
+	print(root)
+
+	while not stack.is_empty():
 		current_node = stack.pop()
 		if current_node not in visited:
 			visited[current_node] = True
 			process(current_node, print)
 
 		for node in current_node.children:
+			print(node)
 			if node not in visited:
 				stack.push(node)
 
@@ -32,8 +35,8 @@ if __name__ == '__main__':
 	}
 
 	g = Graph(graph_dict)
-	random_index = randint(0, 5)
 	root = list(g.nodes.keys())[0]
+	print(g.nodes)
 
 	dfs_iterative(root)
 

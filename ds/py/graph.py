@@ -1,4 +1,3 @@
-from .linked_list import LinkedList
 from random import random, randint
 import math
 
@@ -16,12 +15,15 @@ class Graph:
 	def generate(self, graph_dict):
 		dict_repr = {}
 		[dict_repr.update({node_value : Node(node_value)}) for node_value in list(graph_dict.keys())]
+		print(dict_repr)
+		print(graph_dict.keys())
 		for node_value in graph_dict.keys():
 			node = dict_repr[node_value]
 			edges = graph_dict[node_value]
 			for edge in edges:
 				node.add_child(dict_repr[edge])
 			self.insert(node)
+		print(dict_repr)
 
 	def depth_first_search(self, root):
 		if root == None:
@@ -56,6 +58,23 @@ class Node:
 
 	def add_child(self, node):
 		self.children.append(node)
+		print(node.children)
 
 	def __repr__(self):
 		return str(self.value)
+
+if __name__ == '__main__':
+	graph_dict = {
+		0 : [1, 4, 5],
+		1 : [4, 3],
+		2 : [1],
+		3 : [2, 4],
+		4 : [],
+		5 : []
+	}
+
+	g = Graph(graph_dict)
+	root = list(g.nodes.keys())[0]
+	print(g.nodes)
+
+	# dfs_iterative(root)

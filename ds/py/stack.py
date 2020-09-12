@@ -34,8 +34,6 @@ class Stack:
 				break
 		return string_representation
 
-
-
 class Node():
 	def __init__(self, value):
 		self.value = value
