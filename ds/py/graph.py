@@ -1,5 +1,5 @@
-from linked_list import LinkedList
-from random import random
+from .linked_list import LinkedList
+from random import random, randint
 import math
 
 class Graph:
@@ -9,7 +9,8 @@ class Graph:
 		if graph_dict:
 			self.generate(graph_dict)
 
-	def insert(self, node):
+	def insert(self, value):
+		node = Node(value)
 		self.nodes[node] = node.children
 
 	def generate(self, graph_dict):

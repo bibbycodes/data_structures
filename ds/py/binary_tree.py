@@ -29,20 +29,6 @@ class Tree:
     if node:
       node.delete()
 
-  def traverse_iterativeley(self, node):
-    # print(node.value)
-    while node.left:
-      node = node.left
-      # print(node.value)
-      if node.left == None:
-        print(node.value)
-        node.parent.left = None
-        node = node.parent
-        print(node.value)
-        node = node.right
-        break
-
-
 class Node:
   def __init__(self, value, parent=None):
     self.left = None

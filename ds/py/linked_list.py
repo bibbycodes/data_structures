@@ -30,7 +30,7 @@ class LinkedList:
 		if self.head is not None:
 			return self.head.traverse(self.head, func)
 		print("linked list is empty")
-		return None
+		return
 
 	def delete(self, value):
 		node = self.search(value)

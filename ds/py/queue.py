@@ -1,7 +1,6 @@
 class Queue:
-  def __init__(self, NodeClass, head_value = None, max_length = 100):
-    self.NodeClass = NodeClass
-    self.head =  NodeClass(head_value) if head_value is not None else None
+  def __init__(self, head_value = None, max_length = 100):
+    self.head =  Node(head_value) if head_value is not None else None
     self.tail = None
     self.length = 0 if not self.head else 1
     self.max_length = max_length
@@ -31,7 +30,7 @@ class Queue:
       head = self.head
       self.head = None
       self.length -= 1
-      return head
+      return head.value
     node = self.tail
     while True:
       if node.next_node == self.head:
@@ -39,7 +38,7 @@ class Queue:
         node.next_node == None
         self.head = node
         self.length -= 1
-        return previous_head
+        return previous_head.value
       node = node.next_node
 
   def is_empty(self):
