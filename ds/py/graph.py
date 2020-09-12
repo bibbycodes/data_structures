@@ -34,10 +34,10 @@ class Graph:
 	def breadth_first_search(self, root):
 		queue = []
 		root.visited = True
-		queue.append(root)
+		queue.insert(0, root)
 
 		while len(queue) != 0:
-			removed, queue = queue[-1], queue[:-1]
+			removed, queue = queue[-1], queue[:-1] # pop from queue
 			self.visit(removed, print)
 			for node in removed.children:
 				if node.visited == False:
