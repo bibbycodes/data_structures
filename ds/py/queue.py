@@ -6,7 +6,7 @@ class Queue:
     self.max_length = max_length
 
   def enqueue(self, value):
-    node = self.NodeClass(value)
+    node = Node(value)
     if self.length == self.max_length:
       raise Exception(f"Enqueue not possible, Queue at capacity, max length: {self.max_length}")
     if self.head:
