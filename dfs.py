@@ -1,7 +1,7 @@
 from ds.py.stack import Stack
-from ds.py.graph import Graph
-from random import randint
 
+print(Stack.__dict__)
+# print(Stack.__dict__)
 def process(node, fn):
 	fn(node.value)
 
@@ -10,29 +10,14 @@ def dfs_iterative(root):
 	visited = {}
 	stack.push(root)
 
-	while not stack.is_empty():
+	while not stack.isEmpty():
 		current_node = stack.pop()
 		if current_node not in visited:
-			visited[current_node] = True
-			process(current_node, print)
+			visted[current_node] = True
+			process(current_node)
 
-		for node in current_node.children:
+		for node in current_node.children():
 			if node not in visited:
 				stack.push(node)
 
-
-if __name__ == '__main__':
-	graph_dict = {
-		0 : [1, 4, 5],
-		1 : [4, 3],
-		2 : [1],
-		3 : [2, 4],
-		4 : [1, 3],
-		5 : []
-	}
-
-	g = Graph(graph_dict)
-	root = list(g.nodes.keys())[0]
-
-	dfs_iterative(root)
 
