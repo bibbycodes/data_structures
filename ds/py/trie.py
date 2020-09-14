@@ -48,9 +48,9 @@ class Trie:
   def is_prefix(self, word, prefix):
     trie = Trie()
     trie.insert(word)
-    prefix_array = [char for char in prefix]
     node = trie.root
     for letter in prefix:
+      print(letter)
       if letter not in node.children:
         return False
       else:
@@ -63,5 +63,4 @@ class Node:
     self.children = {}
 
 t = Trie()
-t.insert_word("hello")
-t.insert_word("hellooooo")
+print(t.is_prefix("hello", "hell"))
