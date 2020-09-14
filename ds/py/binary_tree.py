@@ -3,7 +3,7 @@ import math
 
 class Tree:
   def __init__(self, root = None):
-    self.root = root
+    self.root = Node(root)
 
   def insert(self, data):
     if self.root:
@@ -41,14 +41,14 @@ class Node:
       return
     if node.left:
       node.traverse_in_order(node.left)
-    node.perform_operation()
+    node.perform_operation(print)
     if node.right:
       node.traverse_in_order(node.right)
 
   def traverse_pre_order(self, node):
     if node == None:
       return
-    node.perform_operation()
+    node.perform_operation(print)
     if node.left:
       node.traverse_pre_order(node.left)
     if node.right:
@@ -61,7 +61,7 @@ class Node:
       node.traverse_post_order(node.left)
     if node.right:
       node.traverse_post_order(node.right)
-    node.perform_operation()
+    node.perform_operation(print)
 
   def search(self, node, value):
     if node == None:
@@ -88,7 +88,7 @@ class Node:
         return node.right
       return node.insert(node.right, value)
     if node.value == value:
-      print(f"Node Value and Value to be inserted are equal Value! Skipping. Value: {node.value}")
+      raise Exception(f"Node Value and Value to be inserted are equal Value! Skipping. Value: {node.value}")
 
   def delete(self):
     if self.is_leaf():
@@ -108,7 +108,7 @@ class Node:
         return self
 
       else:
-        if self.has_only_left_child() is True:
+        if self.has_only_left_child():
           self.parent.right = self.left
           self.left.parent = self.parent
           return self
@@ -157,8 +157,10 @@ class Node:
   def get_leftmost_node_of_right_sub_tree(self, right_node):
     if right_node.left == None:
       return right_node
-    return self.get_leftmost_node_of(node.left)
+    return self.get_leftmost_node_of_right_sub_tree(right_node.left)
 
-  def perform_operation(self):
-    print(self.value)
+  def perform_operation(self, fn):
+    fn(self.value)
     return self.value
+
+t = Tree(7)

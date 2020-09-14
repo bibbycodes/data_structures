@@ -1,6 +1,3 @@
-from random import random, randint
-import math
-
 class Graph:
 	def __init__(self, graph_dict = None):
 		self.nodes = {}
@@ -13,7 +10,8 @@ class Graph:
 
 	def generate(self, graph_dict):
 		dict_repr = {}
-		[dict_repr.update({node_value : Node(node_value)}) for node_value in list(graph_dict.keys())]
+		#creates a dictionary of {node_value : Node} for each value in the graph dict
+		[dict_repr.update({node_value : Node(node_value)}) for node_value in list(graph_dict.keys())] 
 		for node_value in graph_dict.keys():
 			node = dict_repr[node_value]
 			edges = graph_dict[node_value]
@@ -36,7 +34,8 @@ class Graph:
 		queue.insert(0, root)
 
 		while len(queue) != 0:
-			removed, queue = queue[-1], queue[:-1] # pop from queue
+			# pop from queue
+			removed, queue = queue[-1], queue[:-1] 
 			self.visit(removed, print)
 			for node in removed.children:
 				if node.visited == False:

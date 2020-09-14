@@ -9,7 +9,6 @@ class Trie:
 
   def insert_recursively(self, letter, word):
     node = Node(letter)
-    print(letter, word)
     if node.value == False: # Boolean Flag for end of word
       return
     current_char = False if word == '' else word[0] # if word is empty (ie we have reached the end of the word) current_char becomes the termination flag
@@ -17,13 +16,12 @@ class Trie:
     if current_char in node.children: # if char in subtree, keep going down subtree and pass down word with first_char popped
       return self.insert_recursively(node.children[current_char].value, word[1:]) 
     else: # else add char into children, pop off first_char and continue down subtree
-      node.children[current_char] = current_node
-      return self.insert_recursively(node.children[current_char].value, word[1:])
+      node.children[current_char] = current_node # add node into dict
+      return self.insert_recursively(node.children[current_char].value, word[1:]) # repeat with word minus first char of word
   
   def search(self, word):
-    letters_array = [char for char in word]
     node = self.root
-    for letter in letters_array:
+    for letter in word:
       if letter in node.children:
         node = node.children[letter]
       else:
@@ -31,9 +29,8 @@ class Trie:
     return word if False in node.children else False
 
   def insert(self, word):
-    letters_array = [char for char in word]
     node = self.root
-    for letter in letters_array:
+    for letter in word:
       if letter in node.children:
         node = node.children[letter]
       else:
@@ -46,11 +43,11 @@ class Trie:
     return True if self.search(word) is not False else False
 
   def is_prefix(self, word, prefix):
+    word, prefix = word.lower(), prefix.lower()
     trie = Trie()
     trie.insert(word)
     node = trie.root
     for letter in prefix:
-      print(letter)
       if letter not in node.children:
         return False
       else:
@@ -61,6 +58,3 @@ class Node:
   def __init__(self, value):
     self.value = value
     self.children = {}
-
-t = Trie()
-print(t.is_prefix("hello", "hell"))
