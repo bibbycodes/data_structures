@@ -19,6 +19,12 @@ def merge(array_1, array_2):
         else:
             final.append(array_1[j])
             j += 1
+    print(final)
     return final
 
-print(merge([1,3,5,7,9], [2,4,5,7,8,9]))
+def merge_sort(array):
+    if len(array) == 1:
+        return array
+    left = split(array[0:int(len(array) / 2)])
+    right = split(array[int(len(array) / 2):])
+    return merge(left, right)
