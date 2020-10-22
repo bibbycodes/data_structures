@@ -4,29 +4,36 @@
 import math
 
 def next_bigger(number):
-    array_of_digits = convert_number_to_array_of_digits_reversed(number)
-    j = 0
-        
-    for i in range(len(array_of_digits)):
-        jth = array_of_digits[j]
-        ith = array_of_digits[i]
-        if array_of_digits[j] == 0:
-            j += 1
-        if array_of_digits[i] < array_of_digits[j]:
-            swap_items(i, j, array_of_digits)
-            array_of_digits = list(reversed(array_of_digits))
-            return convert_array_of_digits_to_number(array_of_digits)
-        
-        if array_of_digits[i] == array_of_digits[j]:
-            j = i
+    array_of_digits = convert_number_to_array_of_digits(number)
+    pivot_index = find_pivot_index(array_of_digits)
+    if pivot_index != None:
+        successor_index = find_successor_index(array_of_digits[pivot_index], array_of_digits)
+        swap_items(pivot_index, successor_index, array_of_digits)
+        left_side = array_of_digits[:pivot_index + 1]
+        right_side = array_of_digits[pivot_index + 1:]
+        return convert_array_of_digits_to_number(left_side + sorted(right_side))
     return -1
 
-def convert_number_to_array_of_digits_reversed(number):
+def find_pivot_index(array_of_digits):
+    for i in reversed(range(len(array_of_digits))):
+        if i == 0:
+            break
+        if array_of_digits[i] > array_of_digits[i - 1]:
+            return i - 1
+
+def find_successor_index(number, array_of_digits):
+    for i in reversed(range(len(array_of_digits))):
+        if i == 0:
+            break
+        if array_of_digits[i] > number:
+            return i
+
+def convert_number_to_array_of_digits(number):
     array_of_digits = []
     while number > 0:
         number, digit = math.floor(number / 10), number % 10
         array_of_digits.append(digit)
-    return array_of_digits
+    return list(reversed(array_of_digits))
 
 def convert_array_of_digits_to_number(array_of_digits):
     number = 0
@@ -36,10 +43,4 @@ def convert_array_of_digits_to_number(array_of_digits):
 
 def swap_items(index_1, index_2, array):
     array[index_1], array[index_2] = array[index_2], array[index_1]
-
-print(next_bigger((937206121)))
-failed = [(9876543210, -1), (1234567890, 1234567908), (937206121, 937206211), (3392506469761, 3392506471669), (10, -1), (121126001641, 121126004116), (315163, 315316)]
-for tuple_item in failed:
-    print("actual output", next_bigger(tuple_item[0]), "correct output", tuple_item[1], "input", tuple_item[0])
-# # print(convert_number_to_array_of_digits(123))
 
