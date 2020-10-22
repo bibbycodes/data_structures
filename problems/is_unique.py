@@ -7,11 +7,11 @@ string_c = "abcd e fg"
 
 def is_unique(string):
     string = string.replace(" ", "")
-    cache = defaultdict(int)
+    char_set = defaultdict(int)
     i = 0
     while i < len(string):
-        cache[string[i]] += 1
-        if cache[string[i]] > 1:
+        char_set[string[i]] += 1
+        if char_set[string[i]] > 1:
             return False
         i += 1
     return True
