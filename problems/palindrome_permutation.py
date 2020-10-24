@@ -5,11 +5,11 @@
 # You can ignore casing and non-letter characters
 
 # Theory => the word is a palindrome permutation if all letters or all letters but one occur an even number of times
-# "Tact Coa" => True because there are 2 T's, 2 C's and 2 A's but only one O, Taco Cat
-# "Tacto Coa" => True because there are 2 T's, 2 C's, 2 A's and 2 O's eg Tac ooCat
-# "Tacta Cooa" => True because there are 2 T's, 2 C's, 3 A's and 2 O's eg Tacoa ocat
-# "Tacta Coa" => False because there are 2 T's, 2 C's, 3 A's and 1 O's
-# "Tact Co" => False because there are 2 T's, 2 C's 1 A and 1 o, the a and o will always be in the middle
+    # "Tact Coa" => True because there are 2 T's, 2 C's and 2 A's but only one O, Taco Cat
+    # "Tacto Coa" => True because there are 2 T's, 2 C's, 2 A's and 2 O's eg Tac ooCat
+    # "Tacta Cooa" => True because there are 2 T's, 2 C's, 3 A's and 2 O's eg Tacoa ocat
+    # "Tacta Coa" => False because there are 2 T's, 2 C's, 3 A's and 1 O's
+    # "Tact Co" => False because there are 2 T's, 2 C's 1 A and 1 o, the a and o will always be in the middle
 
 # Algorithm:
     # Downcase string
@@ -25,12 +25,11 @@ def palindrome_permutation(string):
     pattern = re.compile('[^a-zA-Z]')
     string = pattern.sub('', string)
     count = defaultdict(int)
+    odd_number_occurences_count = 0
 
     for i in range(len(string)):
         count[string[i]] += 1
     
-    odd_number_occurences_count = 0
-
     for letter in count.keys():
         if count[letter] % 2 == 1:
             odd_number_occurences_count += 1
