@@ -43,6 +43,8 @@ import unittest
 def one_away(string_a, string_b):
     if string_a == string_b:
         return True
+
+    # messy way to account for "" and "b"
     if 0 in [len(string_a), len(string_b)] and 1 in [len(string_a), len(string_b)]:
         return True
     i, j = len(string_a) - 1, len(string_b) - 1
