@@ -38,7 +38,13 @@
         # else letter change
         # i, j --
 
+import unittest
+
 def one_away(string_a, string_b):
+    if string_a == string_b:
+        return True
+    if 0 in [len(string_a), len(string_b)] and 1 in [len(string_a), len(string_b)]:
+        return True
     i, j = len(string_a) - 1, len(string_b) - 1
     num_edits = 0
     while i >= 0 or j >= 0:
@@ -56,3 +62,13 @@ assert one_away("pale", "ple") == True
 assert one_away("pales", "pale") == True
 assert one_away("pale", "bale") == True
 assert one_away("pale", "bake") == False
+assert one_away("paleabc", "pleabc") == True
+assert one_away("a", "b") == True
+assert one_away("de", "d") == True
+assert one_away("pale", "pale") == True
+assert one_away("pse", "pale") == False
+assert one_away("pas", "pale") == False
+assert one_away("pales", "ples") == True
+assert one_away("pkle", "pable") == False
+assert one_away("pal", "palkes") == False
+assert one_away("", "d") == True
