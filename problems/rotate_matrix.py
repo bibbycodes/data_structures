@@ -32,12 +32,12 @@ m_by_n_matrix = [
 ]
 
 def rotate_m_by_n_matrix(matrix):
-    m_length = len(matrix)
-    n_length = len(matrix[0])
-    rotated_matrix = [[0] * m_length for row in matrix[0]]
-    for row_index in range(m_length):
-        for column_index in range(n_length):
-            destination_row_index = m_length - 1 - row_index
+    col_length = len(matrix)
+    row_length = len(matrix[0])
+    rotated_matrix = [[0] * col_length for row in matrix[0]]
+    for row_index in range(col_length):
+        for column_index in range(row_length):
+            destination_row_index = col_length - 1 - row_index
             rotated_matrix[column_index][destination_row_index] = matrix[row_index][column_index]
     return rotated_matrix
 
