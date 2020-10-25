@@ -54,6 +54,22 @@ class Trie:
         node = node.children[letter]
     return True
 
+  def is_substring(self, s1, s2):
+    s1, s2 = s1.lower(), s2.lower()
+    temp_string = s2
+    trie = Trie()
+    trie.insert(s1)
+    node = trie.root
+    for letter in s1:
+      if temp_string[0] in node.children:
+        temp_string = temp_string[1:]
+        if len(temp_string) == 0:
+          return True
+      else:
+        temp_string = s2
+      node = node.children[letter]
+    return False
+
 class Node:
   def __init__(self, value):
     self.value = value
