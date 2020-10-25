@@ -60,6 +60,7 @@ class Trie:
     trie = Trie()
     trie.insert(s1)
     node = trie.root
+    
     for letter in s1:
       if temp_string[0] in node.children:
         temp_string = temp_string[1:]

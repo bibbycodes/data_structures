@@ -59,7 +59,6 @@ class LinkedList:
 			return node_string
 		return "None"
 
-
 class Node:
 	def __init__(self, value):
 		self.next_node = None
