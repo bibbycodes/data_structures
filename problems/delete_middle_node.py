@@ -6,16 +6,15 @@
 
 from ds.py.linked_list import LinkedList
 
-def delete_middle_node(ll, middle_node):
-    if ll.head == middle_node or middle_node.next_node == None:
-        return
 
-    node = ll.head
-    while node:
-        if node.next_node == middle_node:
-            node.next_node = middle_node.next_node
-            return
-        node = node.next_node
+def delete_middle_node(ll, middle_node):
+    if middle_node.next_node == None:
+        return False
+    
+    next_node = middle_node.next_node
+    middle_node.value = next_node.value
+    middle_node.next_node = next_node.next_node
+    return True
 
 ll = LinkedList()
 for item in ['a', 'b', 'c', 'd', 'e', 'f']:
