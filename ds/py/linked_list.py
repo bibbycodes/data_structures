@@ -7,11 +7,12 @@ class LinkedList:
 	def insert(self, value):
 		if not self.head:
 			self.head = Node(value)
-			return
+			return self.head
 		node = self.head
 		while node.next_node:
 			node = node.next_node
 		node.next_node = Node(value)
+		return node.next_node
 
 	def insert_in_order(self, value):
 		if self.head is not None:
