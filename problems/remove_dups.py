@@ -17,11 +17,10 @@ def remove_dups(linked_list):
     return linked_list
 
 # To do this without a temporary buffer, 
-# we could use two pointers to traverse the list in 0(n2) time
+# we could use two[i,j] pointers to traverse the list in 0(n2) time
 
 def remove_dups_without_buffer(linked_list):
     ith_node = linked_list.head
-
     while ith_node.next_node:
         jth_node = ith_node
         while jth_node.next_node:

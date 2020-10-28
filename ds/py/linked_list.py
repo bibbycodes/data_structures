@@ -5,10 +5,13 @@ class LinkedList:
 		self.head = Node(head_value) if head_value else None
 
 	def insert(self, value):
-		if self.head:
-			return self.head.insert(self.head, value)
-		self.head = Node(value)
-		return self.head
+		if not self.head:
+			self.head = Node(value)
+			return
+		node = self.head
+		while node.next_node:
+			node = node.next_node
+		node.next_node = Node(value)
 
 	def insert_in_order(self, value):
 		if self.head is not None:
@@ -33,26 +36,22 @@ class LinkedList:
 		return
 
 	def delete(self, value):
-		node = self.search(value)
-		if node == self.head:
-			if self.head.next_node:
-				self.head = self.head.next_node
-				return self.head
-			head = self.head
-			self.head = None
-			return head
-		if node:
-			parent_node = node.get_parent_node(self.head, value)
-			if node.next_node:
-				parent_node.next_node = node.next_node
+		if self.head.value == value:
+			self.head = self.head.next_node
+		previous_node = None
+		node = self.head
+		while node:
+			if node.value == value:
+				previous_node.next_node = node.next_node
+				return
 			else:
-				parent_node.next_node = None
-		return node
+				previous_node = node
+				node = node.next_node
 
 	def __repr__(self):
 		if self.head:
 			node = self.head
-			node_string = f"{node.value}"
+			node_string = str(node.value)
 			while node.next_node:
 				node_string = node_string + f" => {node.next_node.value}"
 				node = node.next_node
@@ -104,3 +103,6 @@ class Node:
 		if node.next_node == None:
 			return None
 		return node.get_parent_node(node.next_node, value, node)
+
+
+

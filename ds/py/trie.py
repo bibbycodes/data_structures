@@ -4,21 +4,6 @@ class Trie:
   def __init__(self):
     self.root = Node("Root")
 
-  def insert_word(self, word):
-    self.insert_recursively(self.root.value, word)
-
-  def insert_recursively(self, letter, word):
-    node = Node(letter)
-    if node.value == False: # Boolean Flag for end of word
-      return
-    current_char = False if word == '' else word[0] # if word is empty (ie we have reached the end of the word) current_char becomes the termination flag
-    current_node = Node(current_char)
-    if current_char in node.children: # if char in subtree, keep going down subtree and pass down word with first_char popped
-      return self.insert_recursively(node.children[current_char].value, word[1:]) 
-    else: # else add char into children, pop off first_char and continue down subtree
-      node.children[current_char] = current_node # add node into dict
-      return self.insert_recursively(node.children[current_char].value, word[1:]) # repeat with word minus first char of word
-  
   def search(self, word):
     node = self.root
     for letter in word:
@@ -56,18 +41,16 @@ class Trie:
 
   def is_substring(self, s1, s2):
     s1, s2 = s1.lower(), s2.lower()
-    temp_string = s2
     trie = Trie()
     trie.insert(s1)
     node = trie.root
-    
+    j = 0
+
     for letter in s1:
-      if temp_string[0] in node.children:
-        temp_string = temp_string[1:]
-        if len(temp_string) == 0:
-          return True
-      else:
-        temp_string = s2
+      if j == len(s2):
+        return True
+      if s2[j] in node.children:
+        j += 1
       node = node.children[letter]
     return False
 
@@ -75,3 +58,7 @@ class Node:
   def __init__(self, value):
     self.value = value
     self.children = {}
+
+t = Trie()
+
+print(t.is_substring("hello", "hell"))

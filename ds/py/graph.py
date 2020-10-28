@@ -10,7 +10,7 @@ class Graph:
 
 	def generate(self, graph_dict):
 		dict_repr = {}
-		#creates a dictionary of {node_value : Node} for each value in the graph dict
+		# creates a dictionary of {node_value : Node} for each value in the graph dict
 		[dict_repr.update({node_value : Node(node_value)}) for node_value in list(graph_dict.keys())] 
 		for node_value in graph_dict.keys():
 			node = dict_repr[node_value]
@@ -23,7 +23,6 @@ class Graph:
 		if root == None:
 			return
 		self.visit(root, print)
-		root.visited = True
 		for node in self.nodes[root]:
 			if node.visited == False:
 				self.depth_first_search(node)
@@ -43,6 +42,7 @@ class Graph:
 					queue = [node] + queue
 
 	def visit(self, node, fn):
+		node.visited = True
 		fn(node.value)
 
 class Node:
