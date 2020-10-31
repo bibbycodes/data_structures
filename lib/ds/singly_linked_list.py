@@ -24,10 +24,6 @@ class SinglyLinkedList:
         for value in self.values:
             self.insert(value)
 
-    def insert_values_in_order(self, values):
-        for value in values:
-            self.insert_in_order(value)
-
     def delete(self, data):
         if self.head.data == data:
             self.head = self.head.next_node
@@ -57,7 +53,57 @@ class SinglyLinkedList:
             return node_string
         return "None"
 
-ll = SinglyLinkedList()
-values = [3,2,4,5]
-ll.insert_values_in_order(values)
-print(ll)
+    def insert_in_order(self, data):
+        node = self.head
+        if not self.head:
+            self.head = LinkedListNode(data)
+        elif self.head.data >= data:
+            self.head = LinkedListNode(data)
+            self.head.next_node = node
+        else:
+            while node.next_node:
+                if node.next_node.data >= data:
+                    temp = node.next_node
+                    new_node = LinkedListNode(data)
+                    node.next_node = new_node
+                    new_node.next_node = temp
+                    return
+                node = node.next_node
+            node.next_node = LinkedListNode(data)
+
+
+
+def run_tests():
+    ll = SinglyLinkedList()
+    vals = [1,5,3,2,4,5]
+
+    ll.insert_in_order(1)
+    print(ll)
+    assert ll.__repr__() == '1'
+
+    ll.insert_in_order(3)
+    print(ll)
+    assert ll.__repr__() == '1 => 3'
+
+    ll.insert_in_order(4)
+    print(ll)
+    assert ll.__repr__() == '1 => 3 => 4'
+
+    ll.insert_in_order(2)
+    print(ll)
+    assert ll.__repr__() == '1 => 2 => 3 => 4'
+
+    ll.insert_in_order(0)
+    print(ll)
+    assert ll.__repr__() == '0 => 1 => 2 => 3 => 4'
+
+    from random import randint
+
+    for num in [randint(0,100) for num in range(100)]:
+        ll.insert_in_order(num)
+
+    head = ll.head
+    print(ll)
+    while head.next_node:
+        assert head.next_node.data >= head.data
+        head = head.next_node
