@@ -10,7 +10,6 @@ from ds.py.linked_list import LinkedList
 def delete_middle_node(ll, middle_node):
     if middle_node.next_node == None:
         return False
-    
     next_node = middle_node.next_node
     middle_node.value = next_node.value
     middle_node.next_node = next_node.next_node
