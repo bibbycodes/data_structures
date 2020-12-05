@@ -73,7 +73,7 @@ class Node:
     if node.value > value:
       return self.search(node.left, value)
 
-  def insert(self, node, value):
+  def insert(self, value, node = None):
     if node == None:
       node = Node(value)
       return node
@@ -81,12 +81,12 @@ class Node:
       if node.left == None:
         node.left = Node(value, node)
         return node.left
-      return node.insert(node.left, value)
+      return node.insert(value, node.left)
     if node.value < value:
       if node.right == None:
         node.right = Node(value, node)
         return node.right
-      return node.insert(node.right, value)
+      return node.insert(value, node.right)
     if node.value == value:
       raise Exception(f"Node Value and Value to be inserted are equal Value! Skipping. Value: {node.value}")
 
@@ -163,4 +163,3 @@ class Node:
     fn(self.value)
     return self.value
 
-t = Tree(7)

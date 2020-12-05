@@ -40,6 +40,6 @@ ll = LinkedList()
 for val in [3,5,8,5,10,2,1]:
     ll.insert(val)
 
-partition_linked_list(ll, 0)
+partition_linked_list(ll, 8)
 
 print(ll)

@@ -59,6 +59,3 @@ class Node:
     self.value = value
     self.children = {}
 
-t = Trie()
-
-print(t.is_substring("hello", "hell"))

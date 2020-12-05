@@ -6,13 +6,21 @@ class LinkedListNode:
     def __str__(self):
         return str(self.data)
 
+    def insert_after(self, data):
+        temp = self.next_node
+        self.next_node = new_node = LinkedListNode(data)
+        new_node.next_node = temp
+
 class SinglyLinkedList:
-    def __init__(self, head = None, values = None):
+    def __init__(self, head = None, values = None, sort = True):
         self.head = head
         self.tail = head
         self.values = values
         if self.values:
-            self.insert_values()
+            if sort:
+                self.insert_values_in_order()
+            else:
+                self.insert_values()
 
     def insert(self, data):
         if not self.head:
@@ -43,6 +51,26 @@ class SinglyLinkedList:
             node = node.next_node
         raise Exception("Data not found")
 
+    def insert_in_order(self, data):
+        node = self.head
+        print(data)
+        if not self.head:
+            self.head = LinkedListNode(data)
+        elif self.head.data >= data:
+            self.head = LinkedListNode(data)
+            self.head.next_node = node
+        else:
+            while node.next_node:
+                if node.next_node.data >= data:
+                    node.insert_after(data)
+                    return
+                node = node.next_node
+            node.next_node = LinkedListNode(data)
+    
+    def insert_values_in_order(self):
+        for value in self.values:
+            self.insert_in_order(value)
+
     def __repr__(self):
         if self.head:
             node = self.head
@@ -53,28 +81,9 @@ class SinglyLinkedList:
             return node_string
         return "None"
 
-    def insert_in_order(self, data):
-        node = self.head
-        if not self.head:
-            self.head = LinkedListNode(data)
-        elif self.head.data >= data:
-            self.head = LinkedListNode(data)
-            self.head.next_node = node
-        else:
-            while node.next_node:
-                if node.next_node.data >= data:
-                    temp = node.next_node
-                    new_node = LinkedListNode(data)
-                    node.next_node = new_node
-                    new_node.next_node = temp
-                    return
-                node = node.next_node
-            node.next_node = LinkedListNode(data)
-
-
-
-def run_tests():
+def test_insert_in_order():
     ll = SinglyLinkedList()
+    ll_2 = SinglyLinkedList()
     vals = [1,5,3,2,4,5]
 
     ll.insert_in_order(1)
@@ -97,13 +106,20 @@ def run_tests():
     print(ll)
     assert ll.__repr__() == '0 => 1 => 2 => 3 => 4'
 
+    ll.insert_in_order(-1)
+    print(ll)
+    assert ll.__repr__() == '-1 => 0 => 1 => 2 => 3 => 4'
+
     from random import randint
 
-    for num in [randint(0,100) for num in range(100)]:
-        ll.insert_in_order(num)
+    for num in [chr(randint(60,90)) for num in range(40)]:
+        ll_2.insert_in_order(num)
 
-    head = ll.head
-    print(ll)
+    head = ll_2.head
     while head.next_node:
         assert head.next_node.data >= head.data
         head = head.next_node
+    
+    print(ll_2)
+
+test_insert_in_order()
