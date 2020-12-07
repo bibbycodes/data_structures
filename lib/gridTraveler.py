@@ -1,6 +1,8 @@
 def grid_traveler(m, n, cache = {}):
     if (m, n) in cache:
         return cache[(m, n)]
+    elif (n, m) in cache:
+        return cache[(n, m)]
     if 0 in [m, n]:
         return 0
     if 1 in [m, n]:

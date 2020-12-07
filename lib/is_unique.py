@@ -1,4 +1,4 @@
-# Implement an Algorithm to determine if a srring has all unque characters. What if you can't use additional data structures?
+# Implement an Algorithm to determine if a string has all unique characters. What if you can't use additional data structures?
 
 
 string_a = "abcdefg"
