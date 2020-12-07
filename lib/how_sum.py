@@ -13,6 +13,8 @@ def how_sum(target, nums_array, memo = {}):
             result_remainder.append(num)
             memo[target] = result_remainder
             return memo[target]
+
+    memo[target] = None
     return None
     
     
